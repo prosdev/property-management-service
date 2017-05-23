@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const propertyController = require('../src/controllers/propertyController');
-const { catchErrors } = require('../src/handlers/errorHandlers');
+const propertyController = require('../controllers/propertyController');
+const { catchErrors } = require('../handlers/errorHandlers');
 
 /**
  * Get a list of properties.

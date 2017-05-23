@@ -9,7 +9,7 @@ const passport = require('passport');
 const promisify = require('es6-promisify');
 const flash = require('connect-flash');
 const expressValidator = require('express-validator');
-const routes = require('./routes/index');
+const routes = require('./src/routes/index');
 const errorHandlers = require('./src/handlers/errorHandlers');
 
 // create our Express app

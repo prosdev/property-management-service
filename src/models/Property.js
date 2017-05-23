@@ -7,13 +7,13 @@ const propertySchema = new mongoose.Schema( {
   name: {
     type: String,
     trim: true,
-    required: [true, 'Please enter a name!']
+    required: [true, 'Must supply a name!']
   },
   slug: String,
   description: {
     type: String,
     trim: true,
-    required: 'Please enter a description!'
+    required: 'Must supply a description!'
   },
   thumbnailImg: [String],
   mainImg: [String],
@@ -21,6 +21,20 @@ const propertySchema = new mongoose.Schema( {
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: [{
+      type: Number,
+      required: 'Must supply coordinates!'
+    }],
+    address: {
+      type: String,
+      required: 'Must supply an address!'
+    }
   }
 });
 
