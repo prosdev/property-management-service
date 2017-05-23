@@ -12,7 +12,7 @@ TODO:
  Support for parsing ES2017 features (async-await, generators) from [jsdoc-babel](https://www.npmjs.com/package/jsdoc-babel).
  
 ```javascript
-To generate jsodoc, run:
+To generate jsdoc, run:
 
 ./node_modules/.bin/jsdoc --configure jsdoc.conf --readme readme.md out/index.js.html
 
