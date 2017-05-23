@@ -17,7 +17,11 @@ const propertySchema = new mongoose.Schema( {
   },
   thumbnailImg: [String],
   mainImg: [String],
-  tags: [String]
+  tags: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 propertySchema.pre('save', function (next) {
