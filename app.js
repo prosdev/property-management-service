@@ -10,7 +10,7 @@ const promisify = require('es6-promisify');
 const flash = require('connect-flash');
 const expressValidator = require('express-validator');
 const routes = require('./routes/index');
-const errorHandlers = require('./handlers/errorHandlers');
+const errorHandlers = require('./src/handlers/errorHandlers');
 
 // create our Express app
 const app = express();
