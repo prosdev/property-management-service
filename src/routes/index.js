@@ -44,4 +44,12 @@ router.get('/properties/:id', catchErrors(propertyController.getPropertyById));
  * @bodyparam {String[]} [tags=[]] - Tags associated with property. Should be an array of Strings.
  */
 router.post('/properties/:id', catchErrors(propertyController.updateProperty));
+/**
+ * Get property by slug.
+ *
+ * @name GET Property by Slug
+ * @route {GET} /properties/:slug
+ * @routeparam {String} :slug - Slug is a user friendly identifier for property .
+ */
+router.post('/properties/:slug', catchErrors(propertyController.getPropertiesBySlug));
 module.exports = router;
