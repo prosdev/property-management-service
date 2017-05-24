@@ -55,6 +55,19 @@ const generateUniqueSlugs = async function (next) {
 
 propertySchema.pre('save', generateUniqueSlugs);
 
+propertySchema.statics.getTagsList = function () {
+  //https://docs.mongodb.com/manual/reference/operator/aggregation/
+  // pipeline operators
+  return this.aggregate([
+    // tags are the field on my document I wish to unwind
+    { $unwind: '$tags' },
+    // group by tags and create a new property, count
+    { $group: { _id: '$tags', count: { $sum: 1 } } },
+    // sort data
+    { $sort: { count: -1 } }
+  ])
+};
+
 propertySchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('Property', propertySchema);

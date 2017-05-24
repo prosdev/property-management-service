@@ -6,7 +6,10 @@ exports.getProperties = (req, res) => {
 };
 
 exports.createProperty = async (req, res) => {
+  //Format tags
+  req.body.tags = req.body.tags.map( tag => tag.toLowerCase());
   const property = await new Property(req.body).save();
+
   res.send({
     statusCode: 201,
     message: `Successfully created object with id: ${property._id}`
@@ -15,16 +18,19 @@ exports.createProperty = async (req, res) => {
 
 exports.getProperties = async (req, res) => {
   const properties = await Property.find();
+
   res.send({
-    properties: properties,
     statusCode: 200,
-    message: 'OK'
+    message: 'Successfully retrieved a list of properties.',
+    properties
   });
 };
 
 exports.updateProperty = async (req, res) => {
   //set the location data type, otherwise update will not save as 'Point'
   req.body.location.type = 'Point';
+  //Format tags
+  req.body.tags = req.body.tags.map( tag => tag.toLowerCase());
   const property = await Property.findOneAndUpdate({ _id: req.params.id }, req.body,
       {
         returnNewDocument: true, // return new property instead of the old one
@@ -40,20 +46,44 @@ exports.updateProperty = async (req, res) => {
 
 exports.getPropertyById = async (req, res) => {
   const property = await Property.findOne({ _id: req.params.id });
+
   res.send({
     statusCode: 200,
-    message: `Found object matching id: ${property._id}`
+    message: `Found object with id: ${property._id}`,
+    property
   })
 };
 
-exports.getPropertiesBySlug = async (req, res, next) => {
+exports.getPropertyBySlug = async (req, res, next) => {
   const property = await Property.findOne({slug: req.params.slug});
   if (!property)  return next();
+
   res.send({
     statusCode: 200,
-    message: `Found object matching slug: ${property.slug}`
+    message: `Found object matching slug: ${property.slug}`,
+    property
   })
 
+};
+
+exports.getTags = async (req, res) => {
+  const tags = await Property.getTagsList();
+
+  res.send({
+    statusCode: 200,
+    message: 'Successfully retrieved a list of all tags with associated counts.',
+    tags
+  })
+};
+
+exports.getPropertiesByTag = async (req, res) => {
+  const tag = req.params.tag.toLowerCase();
+  const properties = await Property.find({ tags: tag });
+
+  res.send({
+    statusCode: 200,
+    properties
+  })
 };
 
 exports.deleteProperty = async (req, res) => {

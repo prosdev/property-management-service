@@ -51,5 +51,20 @@ router.post('/properties/:id', catchErrors(propertyController.updateProperty));
  * @route {GET} /properties/:slug
  * @routeparam {String} :slug - Slug is a user friendly identifier for property .
  */
-router.post('/properties/:slug', catchErrors(propertyController.getPropertiesBySlug));
+router.get('/properties/:slug', catchErrors(propertyController.getPropertyBySlug));
+/**
+ * Get a list of tags with counts (frequency of tag appearance in properties).
+ *
+ * @name GET Tags
+ * @route {GET} /tags
+ */
+router.get('/tags', catchErrors(propertyController.getTags));
+/**
+ * Get a list of properties associated with a tag.
+ *
+ * @name GET Properties by Tag
+ * @route {GET} /properties/:tag
+ * @routeparam {String} :tag - Tag that user provides associated with property.
+ */
+router.get('/properties/:tag', catchErrors(propertyController.getPropertiesByTag));
 module.exports = router;
