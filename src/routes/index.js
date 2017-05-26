@@ -67,6 +67,14 @@ router.get('/tags', catchErrors(propertyController.getTags));
  * @routeparam {String} :tag - Tag that user provides associated with property.
  */
 router.get('/properties/:tag', catchErrors(propertyController.getPropertiesByTag));
-
-router.get('/search/', catchErrors(propertyController.searchProperties))
+/**
+ * Get a list of properties matching query.
+ * Order by the frequency of word appearance in name and description.
+ *
+ * @name GET Search
+ * @route {GET} /search
+ * @queryparam {String} q - ?q=searchParam.
+ * @queryparam {String} [limit=10] - ?limit determines the size of results coming back. Default to 10.
+ */
+router.get('/search/', catchErrors(propertyController.searchProperties));
 module.exports = router;
