@@ -21,7 +21,7 @@ exports.getProperties = async (req, res) => {
 
   res.send({
     statusCode: 200,
-    message: 'Successfully retrieved a list of properties.',
+    message: `Successfully retrieved ${properties.length} results.`,
     properties
   });
 };
@@ -79,11 +79,10 @@ exports.getTags = async (req, res) => {
 exports.getPropertiesByTag = async (req, res) => {
   const tag = req.params.tag.toLowerCase();
   const properties = await Property.find({ tags: tag });
-  const propertiesResultCount = _.size(properties);
 
   res.send({
     statusCode: 200,
-    message: `Successfully retrieved ${propertiesResultCount} properties tagged ${tag}`,
+    message: `Successfully retrieved ${properties.length} properties tagged ${tag}`,
     properties
   })
 };
@@ -114,11 +113,36 @@ exports.searchProperties = async (req, res) => {
   })
     .limit(limitSize);
 
-  const resultSize = _.size(properties);
-
   res.send({
     statusCode: 200,
-    message: `Successfully retrieved ${resultSize} results matching: ${req.query.q}`,
+    message: `Successfully retrieved ${properties.length} results matching query: ${req.query.q}`,
     properties
-  })
+  });
+};
+
+exports.mapProperties = async (req, res) => {
+  // If supply a maxDistance query, will limit distance to that, otherwise default to 10km
+  const distance = (req.query.distance)? req.query.distance: 10000;
+  // Default results to 10 if no limit is supplied in query params
+  const limitSize = (req.query.limit) ? req.query.limit: 10;
+  const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
+
+  const q = {
+    location: {
+      $near: {
+        $geometry: {
+          type: 'Point',
+          coordinates
+        },
+        $maxDistance: distance
+      }
+    }
+  };
+
+  const properties = await Property.find(q).select('slug name description location').limit(limitSize);
+  res.send({
+    statusCode: 200,
+    message: `Succesfully retrieved ${properties.length} results within ${limitSize} km of given location`,
+    properties
+  });
 };

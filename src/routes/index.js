@@ -77,4 +77,15 @@ router.get('/properties/tags/:tag', catchErrors(propertyController.getProperties
  * @queryparam {String} [limit=10] - ?limit determines the size of results coming back. Default to 10.
  */
 router.get('/search', catchErrors(propertyController.searchProperties));
+/**
+ * Get a list of properties with a distance given location.
+ *
+ * @name GET Properties Given Location (lng, lat)
+ * @route {GET} /search
+ * @queryparam {String} lng - ?lng is the longitude of location.
+ * @queryparam {String} lat - ?lat is the latitude of location.
+ * @queryparam {String} distance - ?distance is the max distance from given location.
+ * @queryparam {String} limit - limit the size of results returned with query.
+ */
+router.get('/search/properties/near', catchErrors(propertyController.mapProperties));
 module.exports = router;

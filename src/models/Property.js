@@ -45,6 +45,9 @@ propertySchema.index({
   description: 'text'
 });
 
+propertySchema.index({
+  location: '2dsphere'
+});
 
 const generateUniqueSlugs = async function (next) {
   if(!this.isModified('name')) {

@@ -244,7 +244,7 @@ Get all the properties with a given tag.
 ###### Route Parameters:
 |   Name  |   Type            | Description|
 |:------|:------:|:-----|
-|   :tag  |   String            | `:tag` is a label associated with a property|
+|   `:tag`  |   String            | `:tag` is a label associated with a property|
 
 ##### Sample GET response (`/properties/tags/ranch`):
 
@@ -322,7 +322,7 @@ Get all the properties matching a given query based on word frequency in name an
 |   Name  |   Type            | Description|
 |:------|:------:|:-----|
 |   `q`         |   `String`            | `q` is the query for terms matching words in name or description |
-|   `limit`     |   `Integer`           | If given, `limit` will limit the result set to a given number. Will default to `10` if none is given. |
+|   `limit`     |   `Integer`           | If provided, `limit` will limit the result set to a given number. Default to `10` if none is provided. |
 
 
 ##### Sample GET response (`/search?q=ranch`):
@@ -392,6 +392,88 @@ Get all the properties matching a given query based on word frequency in name an
 }
 ```
 
+#### VIII. (_Route_) GET Properties Given Location (lng, lat)
+Get all the properties within certain distance of a given location.
+
+|   Method  |   Path            |
+|:------:|:------:|
+|   `GET`  |   `/search/properties/near`   |
+
+###### Query Parameters:
+|   Name  |   Type            | Description|
+|:------|:------:|:-----|
+|   `lng`         |   `String`            | `lng` is the given longitude of location |
+|   `lat`         |   `String`            | `lat` is the given latitude of location |
+|   `distance`    |   `String`            | If provided, `distance` will limit the properties to within the given distance. Default to 10km if none is provided. |
+|   `limit`       |   `String`            | If provided, `limit` will limit the result set to given number. Default to `10` if none is provided. |
+
+
+##### Sample GET response (`/search?q=ranch`):
+
+```json
+{
+  "statusCode": 200,
+  "message": "Successfully retrieved 2 results matching: ranch",
+  "properties": [
+    {
+      "_id": "5927cd237d70ac76d7837904",
+      "slug": "some-ranch",
+      "name": "Some Ranch",
+      "description": "Some ranch is a very beautiful style ranch",
+      "__v": 0,
+      "score": 2.125,
+      "location": {
+        "address": "200 W Powell Blvd",
+        "coordinates": [
+          -152.442489,
+          45.49762
+        ],
+        "type": "Point"
+      },
+      "createdAt": "2017-05-26T06:37:23.383Z",
+      "tags": [
+        "morehouse",
+        "modern",
+        "ranch"
+      ],
+      "mainImg": [
+        "https://placehold.it/1920x1080"
+      ],
+      "thumbnailImg": [
+        "http://placehold.it/360x180"
+      ]
+    },
+    {
+      "_id": "5927cd2f7d70ac76d7837905",
+      "slug": "some-boot",
+      "name": "Some Boot",
+      "description": "Some Boot is a very beautiful style ranch",
+      "__v": 0,
+      "score": 0.625,
+      "location": {
+        "address": "200 W Powell Blvd",
+        "coordinates": [
+          -152.442489,
+          45.49762
+        ],
+        "type": "Point"
+      },
+      "createdAt": "2017-05-26T06:37:35.560Z",
+      "tags": [
+        "morehouse",
+        "modern",
+        "ranch"
+      ],
+      "mainImg": [
+        "https://placehold.it/1920x1080"
+      ],
+      "thumbnailImg": [
+        "http://placehold.it/360x180"
+      ]
+    }
+  ]
+}
+```
 
 ## JSDOC GUIDE
  Documentation provided by [JSDOC](https://github.com/bvanderlaan/jsdoc-route-plugin).
