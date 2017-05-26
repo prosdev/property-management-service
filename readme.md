@@ -409,7 +409,7 @@ Will only return certain selected properties of the Entity back.
 |   `limit`       |   `String`            | If provided, `limit` will limit the result set to given number. Default to `10` if none is provided. |
 
 
-##### Sample GET response (`/search?q=ranch`):
+##### Sample GET response (`/search/properties/near?lng=-152.44&lat=45.49`):
 
 ```json
 {
