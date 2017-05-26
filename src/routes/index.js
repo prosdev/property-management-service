@@ -67,4 +67,6 @@ router.get('/tags', catchErrors(propertyController.getTags));
  * @routeparam {String} :tag - Tag that user provides associated with property.
  */
 router.get('/properties/:tag', catchErrors(propertyController.getPropertiesByTag));
+
+router.get('/search/', catchErrors(propertyController.searchProperties))
 module.exports = router;

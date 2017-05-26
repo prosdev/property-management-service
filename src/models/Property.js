@@ -39,6 +39,13 @@ const propertySchema = new mongoose.Schema( {
   }
 });
 
+// Define indexes for fast result retrieval
+propertySchema.index({
+  name: 'text',
+  description: 'text'
+});
+
+
 const generateUniqueSlugs = async function (next) {
   if(!this.isModified('name')) {
     next(); //skip if name has not been modified

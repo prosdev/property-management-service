@@ -73,7 +73,7 @@ exports.getTags = async (req, res) => {
     statusCode: 200,
     message: 'Successfully retrieved a list of all tags with associated counts.',
     tags
-  })
+  });
 };
 
 exports.getPropertiesByTag = async (req, res) => {
@@ -90,4 +90,30 @@ exports.deleteProperty = async (req, res) => {
   /**
    * TODO - Can only delete when role is admin
    */
+};
+
+exports.searchProperties = async (req, res) => {
+  //Default result size for query to 10 unless given other size
+  const limitSize = (req.query.limit)? req.query.limit: 10;
+
+  const properties = await Property
+    // first find properties that match
+    .find({
+      $text: {
+        $search: req.query.q
+      }
+    }, {
+      score: { $meta: 'textScore' }
+    }
+  )
+  // sort properties by meta textscore (how often text appears)
+    .sort({
+    score: { $meta: 'textScore'}
+  })
+    .limit(limitSize);
+
+  res.send({
+    statusCode: 200,
+    properties
+  })
 };
