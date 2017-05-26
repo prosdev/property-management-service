@@ -394,6 +394,7 @@ Get all the properties matching a given query based on word frequency in name an
 
 #### VIII. (_Route_) GET Properties Given Location (lng, lat)
 Get all the properties within certain distance of a given location.
+Will only return certain selected properties of the Entity back.
 
 |   Method  |   Path            |
 |:------:|:------:|
@@ -413,15 +414,13 @@ Get all the properties within certain distance of a given location.
 ```json
 {
   "statusCode": 200,
-  "message": "Successfully retrieved 2 results matching: ranch",
+  "message": "Succesfully retrieved 2 results within 10 km of given location",
   "properties": [
     {
       "_id": "5927cd237d70ac76d7837904",
       "slug": "some-ranch",
       "name": "Some Ranch",
       "description": "Some ranch is a very beautiful style ranch",
-      "__v": 0,
-      "score": 2.125,
       "location": {
         "address": "200 W Powell Blvd",
         "coordinates": [
@@ -429,27 +428,13 @@ Get all the properties within certain distance of a given location.
           45.49762
         ],
         "type": "Point"
-      },
-      "createdAt": "2017-05-26T06:37:23.383Z",
-      "tags": [
-        "morehouse",
-        "modern",
-        "ranch"
-      ],
-      "mainImg": [
-        "https://placehold.it/1920x1080"
-      ],
-      "thumbnailImg": [
-        "http://placehold.it/360x180"
-      ]
+      }
     },
     {
       "_id": "5927cd2f7d70ac76d7837905",
       "slug": "some-boot",
       "name": "Some Boot",
       "description": "Some Boot is a very beautiful style ranch",
-      "__v": 0,
-      "score": 0.625,
       "location": {
         "address": "200 W Powell Blvd",
         "coordinates": [
@@ -457,19 +442,7 @@ Get all the properties within certain distance of a given location.
           45.49762
         ],
         "type": "Point"
-      },
-      "createdAt": "2017-05-26T06:37:35.560Z",
-      "tags": [
-        "morehouse",
-        "modern",
-        "ranch"
-      ],
-      "mainImg": [
-        "https://placehold.it/1920x1080"
-      ],
-      "thumbnailImg": [
-        "http://placehold.it/360x180"
-      ]
+      }
     }
   ]
 }
