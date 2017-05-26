@@ -204,7 +204,7 @@ Get a single property given slug.
 }
 ```
 
-#### IV. (_Route_) GET Tags
+#### V. (_Route_) GET Tags
 Get all the tags available with their associated counts.
 
 |   Method  |   Path            |
@@ -234,7 +234,7 @@ Get all the tags available with their associated counts.
 }
 ```
 
-#### IV. (_Route_) GET Property by Tag
+#### VI. (_Route_) GET Property by Tag
 Get all the properties with a given tag.
 
 |   Method  |   Path            |
@@ -311,7 +311,7 @@ Get all the properties with a given tag.
 }
 ```
 
-#### IV. (_Route_) GET Search
+#### VII. (_Route_) GET Search
 Get all the properties matching a given query based on word frequency in name and description. If no limit is given, result will default to first 10 results.
 
 |   Method  |   Path            |
