@@ -54,16 +54,16 @@ exports.getPropertyById = async (req, res) => {
   })
 };
 
-exports.getPropertyBySlug = async (req, res, next) => {
-  const property = await Property.findOne({slug: req.params.slug});
+exports.getPropertyBySlug = async (req, res) => {
+  console.log(req.params.slug);
+  const property = await Property.findOne({ slug: req.params.slug });
   if (!property)  return next();
 
   res.send({
     statusCode: 200,
     message: `Found object matching slug: ${property.slug}`,
     property
-  })
-
+  });
 };
 
 exports.getTags = async (req, res) => {
@@ -71,7 +71,7 @@ exports.getTags = async (req, res) => {
 
   res.send({
     statusCode: 200,
-    message: 'Successfully retrieved a list of all tags with associated counts.',
+    message: 'Successfully retrieved a list of all tags with associated counts for all properties.',
     tags
   });
 };
@@ -79,9 +79,11 @@ exports.getTags = async (req, res) => {
 exports.getPropertiesByTag = async (req, res) => {
   const tag = req.params.tag.toLowerCase();
   const properties = await Property.find({ tags: tag });
+  const propertiesResultCount = _.size(properties);
 
   res.send({
     statusCode: 200,
+    message: `Successfully retrieved ${propertiesResultCount} properties tagged ${tag}`,
     properties
   })
 };
@@ -112,8 +114,11 @@ exports.searchProperties = async (req, res) => {
   })
     .limit(limitSize);
 
+  const resultSize = _.size(properties);
+
   res.send({
     statusCode: 200,
+    message: `Successfully retrieved ${resultSize} results matching: ${req.query.q}`,
     properties
   })
 };

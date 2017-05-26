@@ -48,10 +48,10 @@ router.post('/properties/:id', catchErrors(propertyController.updateProperty));
  * Get property by slug.
  *
  * @name GET Property by Slug
- * @route {GET} /properties/:slug
+ * @route {GET} /properties/slug/:slug
  * @routeparam {String} :slug - Slug is a user friendly identifier for property .
  */
-router.get('/properties/:slug', catchErrors(propertyController.getPropertyBySlug));
+router.get('/properties/slug/:slug', catchErrors(propertyController.getPropertyBySlug));
 /**
  * Get a list of tags with counts (frequency of tag appearance in properties).
  *
@@ -63,10 +63,10 @@ router.get('/tags', catchErrors(propertyController.getTags));
  * Get a list of properties associated with a tag.
  *
  * @name GET Properties by Tag
- * @route {GET} /properties/:tag
+ * @route {GET} /properties/tag/:tag
  * @routeparam {String} :tag - Tag that user provides associated with property.
  */
-router.get('/properties/:tag', catchErrors(propertyController.getPropertiesByTag));
+router.get('/properties/tags/:tag', catchErrors(propertyController.getPropertiesByTag));
 /**
  * Get a list of properties matching query.
  * Order by the frequency of word appearance in name and description.
@@ -76,5 +76,5 @@ router.get('/properties/:tag', catchErrors(propertyController.getPropertiesByTag
  * @queryparam {String} q - ?q=searchParam.
  * @queryparam {String} [limit=10] - ?limit determines the size of results coming back. Default to 10.
  */
-router.get('/search/', catchErrors(propertyController.searchProperties));
+router.get('/search', catchErrors(propertyController.searchProperties));
 module.exports = router;
